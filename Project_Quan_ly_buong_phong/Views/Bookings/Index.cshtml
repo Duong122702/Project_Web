@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Project_Quan_ly_buong_phong.Models.Booking>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayDat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YeuCau)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SoNguoi)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayDat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YeuCau)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoNguoi)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MaDatPhong">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MaDatPhong">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MaDatPhong">Delete</a>
+                <a asp-action="Pay" asp-route-id="@item.MaDatPhong">Pay</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

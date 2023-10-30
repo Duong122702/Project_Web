@@ -1,0 +1,56 @@
+﻿@model Project_Quan_ly_buong_phong.Models.Pay
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+
+
+<h1>Đặt Phòng: @Model.MaDatPhong </h1>
+<form id="Payform">
+    <label>Mã đặt phòng</label>
+    <input type="text" name="MaDatPhong" value="@Model.MaDatPhong" readonly />
+
+    <label>Mã hóa đơn</label>
+    <input type="text" name="MaHoaDon" required />
+
+    <label>Ngày đến</label>
+    <input type="date" name="NgayDen" value="@Model.NgayDen.ToString("yyyy-MM-dd")" readonly />
+
+    <label>Ngày đi</label>
+    <input type="date" name="NgayDi" value="@Model.NgayDi.ToString("yyyy-MM-dd")" required />
+
+    <label>Hình thức thanh toán</label>
+    <input type="text" name="HinhThucThanhToan" required />
+
+    <label>NgayThanhToan</label>
+    <input type="date" name="NgayThanhToan" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+
+    <button type="submit">Xác nhận thanh toán</button>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $("#Payform").on("submit", function (event) {
+            event.preventDefault();
+
+            var formData = $(this).serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: '/Bookings/PayConfirmed',
+                data: formData,
+                success: function (response, textStatus, xhr) {
+                    if (xhr.status === 200) {
+                        alert('Phòng đã được trả, hóa đơn đã được tạo');
+                        window.location.href = '/Bookings/Index';
+
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert('Có lỗi xảy ra: ' + errorThrown);
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,133 @@
+﻿@model IEnumerable<Project_Quan_ly_buong_phong.Models.Phong>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<div class="card shadow border-0 my-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Phòng</h2>
+            </div>
+        </div>
+    </div>
+    <div id="phongListContainer">
+    <div class="card-body p-4">
+        <div class="row pb-3">
+                <div class="col-6 text-start" >
+                    <button id="toggleSearch" class="btn btn-primary ">Phòng còn trống</button>
+                    <div id="searchForm" style="display:none;" class="form-group">
+                        <input type="date" id="ngayDen" class="form-control my-2">
+                        <input type="date" id="ngayDi" class="form-control">
+                        <button id="searchButton" type="submit" class="btn btn-secondary my-2">Tìm kiếm</button>
+                    </div>
+            </div>
+            <div class="col-6 text-end">
+                <a asp-controller="Phongs" asp-action="Create" class="btn btn-primary">
+                    <i class="bi bi-plus-circle m-1"></i>Create New
+                </a>
+            </div>
+        </div>
+        <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LoaiPhong)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.GiaCa)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ViewPhong)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SoGiuong)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LoaiPhongTam)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LoaiGiuong) 
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.KichThuoc)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BanCong)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LoaiPhong)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GiaCa)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ViewPhong)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SoGiuong)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LoaiPhongTam)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LoaiGiuong)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.KichThuoc)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BanCong)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.TenPhong"class="btn btn-primary mx-2">Edit</a> 
+                            <a asp-action="Details" asp-route-id="@item.TenPhong" class="btn btn-primary mx-2">Details</a> 
+                            <a asp-action="Delete" asp-route-id="@item.TenPhong" class="btn btn-primary mx-2">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+    </div>
+    </div>
+</div>
+
+@*javascript*@
+<script>
+    $(document).ready(function () {
+        function LoadAvailableRoomList(ngayDen, ngayDi) {
+            $.ajax({
+                url: '@Url.Action("GetAvailableRoom", "Phongs")',
+                data: { ngayDen: ngayDen, ngayDi: ngayDi },
+                type: 'GET',
+                success: function (response) {
+                    $('#phongListContainer').html(response);
+                }
+            });
+        }
+
+        $('#toggleSearch').click(function () {
+            $('#searchForm').toggle();
+        });
+
+        // Search function
+        $('#searchButton').click(function () {
+            const ngayDen = $('#ngayDen').val();
+            const ngayDi = $('#ngayDi').val();
+            LoadAvailableRoomList(ngayDen, ngayDi);
+        });
+    });
+</script>
+

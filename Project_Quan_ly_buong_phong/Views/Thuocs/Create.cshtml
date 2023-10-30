@@ -1,0 +1,46 @@
+﻿@model Project_Quan_ly_buong_phong.Models.Thuoc
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Thuoc</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MaDatPhong" class="control-label"></label>
+                <select asp-for="MaDatPhong" class ="form-control" asp-items="ViewBag.MaDatPhong"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="TenPhong" class="control-label"></label>
+                <select asp-for="TenPhong" class ="form-control" asp-items="ViewBag.TenPhong"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="NgayDen" class="control-label"></label>
+                <input asp-for="NgayDen" class="form-control" />
+                <span asp-validation-for="NgayDen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NgayDi" class="control-label"></label>
+                <input asp-for="NgayDi" class="form-control" />
+                <span asp-validation-for="NgayDi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

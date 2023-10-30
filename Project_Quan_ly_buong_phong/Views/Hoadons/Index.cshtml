@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Project_Quan_ly_buong_phong.Models.Hoadon>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table py-2">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayThanhToan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HìnhThucThanhToan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TongTien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaDatPhongNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayThanhToan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HìnhThucThanhToan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TongTien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaDatPhongNavigation.MaDatPhong)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MaHoaDon">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MaHoaDon">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MaHoaDon">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

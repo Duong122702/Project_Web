@@ -1,0 +1,150 @@
+﻿@model IEnumerable<Project_Quan_ly_buong_phong.Models.Khachhang>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<h1>Index</h1>
+
+<div>
+    <button id="toggleSearch">Tìm kiếm khách</button>
+    <div id="searchForm" style="display:none;">
+        <input type="text" id="maKhach" placeholder="Mã Khách">
+        <input type="text" id="cccd" placeholder="CCCD">
+        <button id="searchButton">Tìm kiếm</button>
+    </div>
+</div>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div id="khachhangListContainer">
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Ho)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ten)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgaySinh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cccd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GioiTinh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhanLoai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sdt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ho)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dem)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ten)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgaySinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cccd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GioiTinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhanLoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sdt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MaKhachHang">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MaKhachHang">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MaKhachHang">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+<div id="paginationContainer">
+    <button id="prevPage">Previous</button>
+    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+    {
+        <button class="currentPage" data-page="@i">@i</button>
+    }
+    <button id="nextPage">Next</button>
+</div>
+<script>
+    let currentPage = 1;
+    let totalPages = 1;  // Initialize to 1
+    let page = 1;
+    $(document).ready(function () {
+        function loadKhachhangList(pageNumber, maKhach = '', cccd = '') {
+            $.ajax({
+                url: '@Url.Action("GetKhachhangList", "Khachhangs")',
+                data: { page: pageNumber, maKhach: maKhach, cccd: cccd },
+                type: 'GET',
+                success: function (response) {
+                    $('#khachhangListContainer').html(response);
+                    totalPages = $('#totalPages').val();  // Assuming you store it in a hidden input
+                    $('#currentPage').text(pageNumber);
+                    currentPage = pageNumber;
+                }
+            });
+        }
+
+        $('#toggleSearch').click(function () {
+            $('#searchForm').toggle();
+        });
+
+        // Search function
+        $('#searchButton').click(function () {
+            const maKhach = $('#maKhach').val();
+            const cccd = $('#cccd').val();
+            loadKhachhangList(page, maKhach, cccd);
+        });
+
+        $('#prevPage').click(function () {
+            if (currentPage - 1 > 0) {
+                loadKhachhangList(currentPage - 1);
+            }
+        });
+
+        $('#nextPage').click(function () {
+            if (currentPage < totalPages) {  // Use the updated totalPages value
+                loadKhachhangList(currentPage + 1);
+            }
+        });
+        loadKhachhangList(currentPage);
+    });
+</script>

@@ -1,0 +1,71 @@
+﻿@model Project_Quan_ly_buong_phong.Models.BookRoomViewModels
+
+<h1>Đặt Phòng: @Model.RoomID </h1>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<a asp-action="Create" asp-controller="KhachHangs" class="btn btn-primary">Tạo Khách Hàng Mới</a>
+
+<form id="formDatPhong">
+    <label>Tên phòng</label>
+    <input type="text" name="RoomID" value="@Model.RoomID" readonly />
+
+    <label>Mã đặt phòng</label>
+    <input type="text" name="MaDatPhong" required />
+
+    <label>Ngày đến</label>
+    <input type="date" name="NgayDen" required />
+
+    <label>Ngày đi</label>
+    <input type="date" name="NgayDi" required />
+
+    <label>Yêu cầu</label>
+    <input type="text" name="YeuCau" />
+
+    <label>Số người</label>
+    <input type="number" name="SoNguoi" min="1" max="100" required />
+
+    <label>Mã khách hàng</label>
+    <select name="MaKhachHang">
+        @foreach (var khachHang in ViewBag.KhachHangs)
+        {
+            <option value="@khachHang.MaKhachHang">@khachHang.MaKhachHang</option>
+        }
+    </select>
+
+    <button type="submit">Xác nhận đặt phòng</button>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $("#formDatPhong").on("submit", function (event) {
+            event.preventDefault();
+
+            var formData = $(this).serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: '/Phongs/ConfirmBooking',
+                data: formData,
+                success: function (response, textStatus, xhr) {
+                    if (xhr.status === 200) {
+                        alert('Đặt phòng thành công');
+                        window.location.href = '/Phongs/Index';
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert('Đặt dịch vụ thất bại: ' + errorThrown);
+                }
+            });
+        });
+    });
+
+        document.getElementById("soNguoi").addEventListener("input", function (e) {
+            var value = e.target.value;
+
+            // Chỉ cho phép số nguyên
+            e.target.value = value.replace(/[^0-9]/g, "");
+        });
+
+</script>

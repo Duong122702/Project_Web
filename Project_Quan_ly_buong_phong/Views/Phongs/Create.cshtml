@@ -1,0 +1,82 @@
+﻿@model Project_Quan_ly_buong_phong.Models.Phong
+
+
+
+<div class="card shadow border-0 my-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Create Phong</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form asp-action="Create" methor="post" class="row">
+            <div class="border p-3">
+                @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+            <div class="form-floating py-2 col-12 ">
+                <input asp-for="TenPhong" class="form-control border-0 shadow " />
+                <label asp-for="TenPhong" class="ms-2"></label>
+                <span asp-validation-for="TenPhong" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-12">
+                    <input asp-for="LoaiPhong" class="form-control border-0 shadow" />
+                    <label asp-for="LoaiPhong" class="ms-2"></label>
+                <span asp-validation-for="LoaiPhong" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-12">
+                    <input asp-for="GiaCa" class="form-control border-0 shadow" />
+                    <label asp-for="GiaCa" class="ms-2"></label>
+                <span asp-validation-for="GiaCa" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-12">
+                    <input asp-for="ViewPhong" class="form-control border-0 shadow" />
+                    <label asp-for="ViewPhong" class="ms-2"></label>
+                <span asp-validation-for="ViewPhong" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-12">
+                    <input asp-for="SoGiuong" class="form-control border-0 shadow" />
+                    <label asp-for="SoGiuong" class="ms-2"></label>
+                <span asp-validation-for="SoGiuong" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-12">
+                    <input asp-for="LoaiPhongTam" class="form-control border-0 shadow" />
+                    <label asp-for="LoaiPhongTam" class="ms-2"></label>
+                <span asp-validation-for="LoaiPhongTam" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-12">
+                    <input asp-for="LoaiGiuong" class="form-control border-0 shadow" />
+                    <label asp-for="LoaiGiuong" class="ms-2"></label>
+                <span asp-validation-for="LoaiGiuong" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2 col-12">
+                    <input asp-for="KichThuoc" class="form-control border-0 shadow" />
+                    <label asp-for="KichThuoc" class="ms-2"></label>
+                <span asp-validation-for="KichThuoc" class="text-danger"></span>
+            </div>
+            <div class="py-2 col-12 form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="BanCong" /> @Html.DisplayNameFor(model => model.BanCong)
+                </label>
+                </div>
+            <div class="row pt-2">
+                <div class="col-6 col-md-3">
+                    <button type="submit" class="btn btn-primary form-control">Create</button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <a asp-controller="Phongs" asp-action="Index" class="btn btn-outline-secondary border form-control">
+                        Back to List Phong
+                    </a>
+                </div>
+            </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

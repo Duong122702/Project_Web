@@ -1,0 +1,138 @@
+﻿@model IEnumerable<Project_Quan_ly_buong_phong.Models.Dichvu>
+
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Add Bootstrap if not already included -->
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TenDichVu)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GiaDichVu)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DonViTinh)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenDichVu)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GiaDichVu)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DonViTinh)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.MaDichVu">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.MaDichVu">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.MaDichVu">Delete</a> |
+                        <a href="javascript:void(0);" onclick="openChooseModal('@item.MaDichVu')">Choose</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="chooseServiceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chọn Dịch Vụ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <form id="chooseServiceForm">
+                <div class="modal-body">
+                    <input type="hidden" id="modalMaDichVu" name="MaDichVu" />
+                    <label>Số Lượng</label>
+                    <input type="number" name="SoLuong" min="1" max ="100"/>
+                    <label>Chọn mã đặt phồng</label>
+                    <select name="MaDatPhong">
+                        @foreach (var datphong in ViewBag.Booking)
+                        {
+                            <option value="@datphong.MaDatPhong">@datphong.MaDatPhong</option>
+                        }
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Đóng</button>
+
+                    <button type="submit" class="btn btn-primary">Đặt Dịch Vụ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $("#chooseServiceForm").on("submit", function (event) {
+            event.preventDefault(); 
+
+            var formData = $(this).serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: '/DichVus/ConfirmService',
+                data: formData,
+                success: function (response, textStatus, xhr) {
+                    if (xhr.status === 200) {
+                        $('#chooseServiceModal').modal('hide');
+                        alert('Đặt dịch vụ thành công');
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert('Đặt dịch vụ thất bại: ' + errorThrown);
+                }
+            });
+        });
+    });
+
+
+
+    function openChooseModal(maDichVu) {
+        // Điền MaDichVu vào form trong modal
+        document.getElementById('modalMaDichVu').value = maDichVu;
+
+        // Mở modal
+        $('#chooseServiceModal').modal('show');
+    }
+
+    // Đóng modal
+    function closeModal() {
+        $('#chooseServiceModal').modal('hide');
+    }
+
+</script>

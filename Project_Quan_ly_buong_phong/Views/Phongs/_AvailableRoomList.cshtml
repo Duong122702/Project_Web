@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Project_Quan_ly_buong_phong.Models.Phong>
+@{
+    ViewData["Title"] = "Index";
+}
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LoaiPhong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GiaCa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ViewPhong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SoGiuong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoaiPhongTam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoaiGiuong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KichThuoc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BanCong)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoaiPhong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GiaCa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ViewPhong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoGiuong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoaiPhongTam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoaiGiuong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KichThuoc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BanCong)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.TenPhong">Details</a> |
+                    <a asp-action="BookRoom" asp-route-id="@item.TenPhong">BookRoom</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

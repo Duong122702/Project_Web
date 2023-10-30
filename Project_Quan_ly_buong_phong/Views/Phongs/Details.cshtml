@@ -1,0 +1,64 @@
+﻿@model Project_Quan_ly_buong_phong.Models.Phong
+
+
+<div class="card shadow border-0 my-2">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h2 class="text-white">Details</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body pt-4" > 
+        <table class="table table-borderless ">
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.LoaiPhong)</td>
+                    <td>@Html.DisplayFor(model => model.LoaiPhong)</td>
+                </tr>
+                <tr>
+                    <td> @Html.DisplayNameFor(model => model.GiaCa)</td>
+                    <td>@Html.DisplayFor(model => model.GiaCa)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.ViewPhong)</td>
+                    <td>@Html.DisplayFor(model => model.ViewPhong)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.SoGiuong)</td>
+                    <td>@Html.DisplayFor(model => model.SoGiuong)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.LoaiPhongTam)</td>
+                    <td>@Html.DisplayFor(model => model.LoaiPhongTam)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.LoaiGiuong)</td>
+                    <td>@Html.DisplayFor(model => model.LoaiGiuong)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.KichThuoc)</td>
+                    <td>@Html.DisplayFor(model => model.KichThuoc)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.BanCong)</td>
+                    <td>@Html.DisplayFor(model => model.BanCong)</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row pt-2">
+            <div class="col-6 col-md-3">
+                <a asp-action="Edit" asp-route-id="@Model?.TenPhong"  class="btn btn-primary border form-control">
+                    Edit
+                </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <a asp-controller="Phongs" asp-action="Index" class="btn btn-outline-secondary border form-control">
+                    Back to List Phong
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
